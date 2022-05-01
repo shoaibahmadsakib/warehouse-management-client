@@ -8,7 +8,7 @@ import "./Header.css";
 
 const Header = () => {
   const [user, loading, error] = useAuthState(auth);
-  console.log(user);
+  // console.log(user);
   return (
     <Navbar bg="light" expand="lg">
       <Container>
@@ -22,18 +22,22 @@ const Header = () => {
             <Nav.Link as={Link} to="/blog">
               Blog
             </Nav.Link>
+
             {user ? (
-              <div>
+              <>
+               <Nav.Link as={Link} to="/additem">
+                  Add
+                </Nav.Link>
                 {user.photoURL ? (
                   <img src={user.photoURL} className="user_img" alt="" />
                 ) : (
                   ""
                 )}
-
+               
                 <Button variant="secondary" onClick={() => signOut(auth)}>
                   Logout
                 </Button>
-              </div>
+              </>
             ) : (
               <Nav.Link as={Link} to="/login">
                 Login

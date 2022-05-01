@@ -1,3 +1,17 @@
 body {
   font-family: "Roboto", sans-serif;
 }
+
+/* home page */
+.image_style{
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  margin: 50px 100px;
+  grid-gap: 20px;
+}
+.card{
+  /* width: 200px; */
+}
+.card img{
+   
+}

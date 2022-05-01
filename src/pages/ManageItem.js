@@ -1,8 +1,12 @@
 import React from 'react'
 
+
 const ManageItem = () => {
   return (
-    <div>ManageItem</div>
+    <div>
+      <h3>manage data item</h3>
+
+    </div>
   )
 }
 

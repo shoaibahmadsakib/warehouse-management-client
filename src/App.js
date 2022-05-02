@@ -12,6 +12,8 @@ import RequireAuth from "./components/requireAuth/RequireAuth";
 import AddItem from "./pages/AddItem";
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import ManageItem from "./pages/ManageItem";
+import UpdateItem from "./pages/UpdateItem";
 function App() {
   return (
     <div className="App">
@@ -37,6 +39,9 @@ function App() {
         ></Route>
         <Route path="/login" element={<Login></Login>}></Route>
         <Route path="/signup" element={<SignUp></SignUp>}></Route>
+
+        <Route path="/manageitem" element={<ManageItem></ManageItem>}></Route>
+        <Route path="/updateitem/:id" element={<UpdateItem></UpdateItem>}></Route>
 
         <Route path="*" element={<ErrorPage></ErrorPage>}></Route>
       </Routes>

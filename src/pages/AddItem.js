@@ -29,6 +29,7 @@ const AddItem = () => {
         <input
           className="mb-2"
           placeholder="Name"
+          
           {...register("name", { required: true, maxLength: 20 })}
         />
         <textarea

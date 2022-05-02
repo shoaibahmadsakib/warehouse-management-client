@@ -28,6 +28,9 @@ const Header = () => {
                <Nav.Link as={Link} to="/additem">
                   Add
                 </Nav.Link>
+               <Nav.Link as={Link} to="/manageitem">
+                  manage
+                </Nav.Link>
                 {user.photoURL ? (
                   <img src={user.photoURL} className="user_img" alt="" />
                 ) : (

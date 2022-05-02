@@ -17,11 +17,6 @@ const SignUp = () => {
     const email = event.target.email.value;
     const password = event.target.password.value;
     const conPassWord = event.target.conPassWord.value;
-    // const photoUrl = event.target.photo.value;
-    // if (!/(?=.*[A-Z].*[A-Z])/.test(password)) {
-    //   console.log("this is not validet");
-    //   return;
-    // }
     if (
       !/^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{6,}$/.test(password)
     ) {

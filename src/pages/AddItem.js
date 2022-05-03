@@ -1,10 +1,11 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-
+import {useAuthState} from "react-firebase-hooks/auth"
+import auth from "../firebase.init";
 const AddItem = () => {
   const { register, handleSubmit } = useForm();
-
+  const [user] = useAuthState(auth)
   const onSubmit = (data) => {
     console.log(data);
     const url = `http://localhost:5000/userinfo`;
@@ -42,6 +43,13 @@ const AddItem = () => {
           placeholder="Price"
           type="number"
           {...register("price")}
+        />
+        <input
+          className="mb-2"
+          placeholder="suplier name"
+          value={user?.displayName}
+          type="text"
+          {...register("suplierName")}
         />
         <input
           className="mb-2"

@@ -1,0 +1,55 @@
+.banner_size {
+  width: 100%;
+  height: 90vh;
+  background-image: linear-gradient(
+      rgb(147 24 242 / 46%) 0%,
+      rgb(59 20 59 / 37%) 48.81%,
+      rgb(127 101 141 / 69%) 100%
+    ),
+    url(https://i.ibb.co/yqntX8T/jonathan-borba-LR5-O79shvro-unsplash.jpg);
+
+  /* rgba(114, 46, 166, 0.46) 0%,
+    rgba(38, 36, 38, 0.37) 48.81%,
+    rgba(179, 20, 36, 0.53) 100% */
+  /* ; */
+  background-position: center;
+  background-size: cover;
+  position: relative;
+}
+.banner_text {
+   
+  text-align: center;
+  padding-top: 40vh;
+}
+.banner_size img {
+  height: 100vh;
+  width: 100%;
+}
+.type_style {
+  color: rgb(255 255 255);
+  font-size: 30px;
+  font-weight: 600;
+  padding-bottom: 30px;
+}
+.banner_header {
+  font-weight: 800;
+  font-size: 35px;
+
+  color: rgb(255 255 255);
+  text-transform: uppercase;
+}
+.custom_button{
+    color: rgb(255 255 255);
+    background: rgb(0 0 0 / 0%);
+    border: none;
+    border: 1px solid;
+    border-radius: 4px;
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: 18px;
+    padding: 13px;
+}
+.custom_button:hover{
+    background-color: rgb(169 0 255 / 51%);
+    transition: .5s;
+}

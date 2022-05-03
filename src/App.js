@@ -2,6 +2,8 @@ import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
+// Import Swiper styles
+
 import Header from "./components/header/Header";
 import Blog from "./pages/Blog";
 import ErrorPage from "./pages/ErrorPage";
@@ -14,6 +16,8 @@ import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import ManageItem from "./pages/ManageItem";
 import UpdateItem from "./pages/UpdateItem";
+import Footer from "./components/footer/Footer";
+import Inventory from "./pages/Inventory";
 function App() {
   return (
     <div className="App">
@@ -37,6 +41,14 @@ function App() {
             </RequireAuth>
           }
         ></Route>
+         <Route
+          path="/inventory/:id"
+          element={
+            <RequireAuth>
+              <Inventory></Inventory>
+            </RequireAuth>
+          }
+        ></Route>
         <Route path="/login" element={<Login></Login>}></Route>
         <Route path="/signup" element={<SignUp></SignUp>}></Route>
 
@@ -45,6 +57,7 @@ function App() {
 
         <Route path="*" element={<ErrorPage></ErrorPage>}></Route>
       </Routes>
+      <Footer/>
       <ToastContainer />
     </div>
   );

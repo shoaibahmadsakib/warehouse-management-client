@@ -38,6 +38,7 @@ const ManageItem = () => {
          <Link to={`/updateitem/${data._id}`}>Update</Link>
         </div>
       ))}
+      <Link to="/additem">Add Inventory</Link>
     </div>
   );
 };

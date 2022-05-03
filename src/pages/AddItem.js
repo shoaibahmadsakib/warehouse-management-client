@@ -33,6 +33,12 @@ const AddItem = () => {
           
           {...register("name", { required: true, maxLength: 20 })}
         />
+        <input
+          className="mb-2"
+          placeholder="email"
+          value={user.email}
+          {...register("email")}
+        />
         <textarea
           className="mb-2"
           placeholder="Description"

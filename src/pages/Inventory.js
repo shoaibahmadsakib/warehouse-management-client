@@ -13,43 +13,41 @@ const Inventory = () => {
   }, [isRelode]);
   const { id } = useParams();
 
-
- const removeOne =()=>{
-    let newQuantity = info.quantity -1
-    const newProduct = { ...info, quantity: newQuantity }
-    //copy all previous data if exist in product and setup new quantity 
+  const removeOne = () => {
+    let newQuantity = info.quantity - 1;
+    const newProduct = { ...info, quantity: newQuantity };
+    //copy all previous data if exist in product and setup new quantity
     setUnfo(newProduct);
 
     fetch(`http://localhost:5000/userinfo/${id}`, {
-      method: 'PUT',
+      method: "PUT",
       headers: {
-          'Content-Type': 'application/json'
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(newProduct)
-  })
- }
+      body: JSON.stringify(newProduct),
+    });
+  };
 
- const handleSubmit=(e)=>{
-   e.preventDefault()
- 
-   const quantity = e.target.quantity.value
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-   const url = `http://localhost:5000/userinfo/${id}`;
-   fetch(url, {
-     method: "PUT",
-     headers: {
-       "content-type": "application/json",
-     },
-     body: JSON.stringify({quantity}),
-   })
-     .then((res) => res.json())
-     .then((result) => {
-       console.log(result);
-      // e.target.reset("")
-      setIsRelode(!isRelode)
-     });
- 
- }
+    const quantity = e.target.quantity.value;
+
+    const url = `http://localhost:5000/userinfo/${id}`;
+    fetch(url, {
+      method: "PUT",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({ quantity }),
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        console.log(result);
+        // e.target.reset("")
+        setIsRelode(!isRelode);
+      });
+  };
   return (
     <div className="d-flex justify-content-between container pt-5 gap-4">
       <div className="first_part">
@@ -61,19 +59,16 @@ const Inventory = () => {
         <p>price: {info.price}</p>
         <p>Supplier name: {info.suplierName}</p>
         <p>{info.describtion}</p>
+        <div className="d-flex justify-content-around">
+          <button className="btn btn-primary" onClick={() => removeOne()}>
+            Delever
+          </button>
 
-        <button
-          className="btn btn-primary"
-          onClick={()=>removeOne()}
-        >
-          Delever
-        </button>
-
-
-        <form onSubmit={handleSubmit}>
-          <input  type="number" name="quantity" id=""/>
-          <button type="submit">submit</button>
-        </form>
+          <form onSubmit={handleSubmit}>
+            <input type="number" name="quantity" id="" />
+            <button className="btn btn-danger" type="submit">submit</button>
+          </form>
+        </div>
       </div>
       <div className="second_part">
         <img src={info.image} alt="" />

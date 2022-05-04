@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { NavLink } from "react-bootstrap";
 import { Link, useParams } from "react-router-dom";
 
 const ManageItem = () => {
@@ -26,16 +27,17 @@ const ManageItem = () => {
     }
   };
 
-
-
   return (
     <div className="w-50 mx-auto">
       <h3>manage data item</h3>
       {users.map((data) => (
         <div className="manageitem_align">
           <p>{data.name}</p>
-          <button onClick={() => handleDelete(data._id)}>X</button>
-         <Link to={`/updateitem/${data._id}`}>Update</Link>
+          <div className="d-flex justify-content-between gap-3">
+            <button style={{border:'none'}} onClick={() => handleDelete(data._id)}><i className="fa-solid fa-delete-left"></i></button>
+            
+           <NavLink as={Link} className="text-primary" to={`/updateitem/${data._id}`}>Update</NavLink>
+          </div>
         </div>
       ))}
       <Link to="/additem">Add Inventory</Link>

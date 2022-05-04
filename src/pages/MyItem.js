@@ -5,38 +5,43 @@ import axios from 'axios'
 const MyItem = () => {
   const [user] = useAuthState(auth);
   const [myItem, setMyItem] = useState([]);
+  const [users, setUsers] = useState([]);
 
   useEffect(() => {
     const getOrder = async()=>{
-      const email = user.email;
-      const url = `http://localhost:5000/myitem?email=${email}`;
+      
+      const email =user.email
+      console.log(email);
+      const url = `http://localhost:5000/userinfo`;
       const {data} =await axios.get(url)
-      setMyItem(data)
      
+      const remaining = data.filter((service) => service.email === user.email);
+      setMyItem(remaining)
     }
     getOrder()
     
-  }, [user]);
+  }, [user,users]);
 
+// const myFilter = data.filter((service) => service.email === user.email);
+// setMyItem(remaining)
 
+const handleDelete = (id) => {
+  console.log(id);
+  const confirmDelete = window.confirm("are you sure to delete it?");
+  if (confirmDelete) {
+    const url = `http://localhost:5000/userinfo/${id}`;
+    fetch(url, {
+      method: "DELETE",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        const remaining = users.filter((service) => service._id !== id);
+        setUsers(remaining);
+      });
+  }
+};
 
-  const handleDelete = (id) => {
-    console.log(id);
-    const confirmDelete = window.confirm("are you sure to delete it?");
-    if (confirmDelete) {
-      const email = user.email;
-      const url = `http://localhost:5000/myitem?email=${email}`;
-      fetch(url, {
-        method: "DELETE",
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          console.log(data);
-          const remaining = myItem.filter((service) => service._id !== id);
-          setMyItem(remaining);
-        });
-    }
-  };
 
   return(
     <div>
@@ -45,6 +50,7 @@ const MyItem = () => {
         <div>
           <p>name: {data.name}</p>
           <button onClick={() => handleDelete(data._id)}>delete</button>
+          
         </div>)
       }
     </div>

@@ -20,11 +20,12 @@ const AddItem = () => {
     .then(result =>{
         console.log(result);
         toast("add successfully")
+        
     } )
   };
 
   return (
-    <div className="w-50 mx-auto">
+    <div className="w-50 mx-auto myForm_style">
       <h2>Please add a service</h2>
       <form className="d-flex flex-column" onSubmit={handleSubmit(onSubmit)}>
         <input

@@ -83,9 +83,12 @@ const Home = () => {
           </div>
         ))}
       </div>
-      <Link to="/manageitem" className="btn btn-primary">
+      <div className="d-flex justify-content-end container">
+      <Link to="/manageitem" className="btn btn-primary ">
                 Manage item
               </Link>
+
+      </div>
       <ReviewSection />
     </>
   );

@@ -8,7 +8,7 @@ In the project directory, you can run:
 
 ### `npm start`
 
- Markup : * Bullet list
+* Bullet list
 
 
 Runs the app in the development mode.\

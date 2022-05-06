@@ -6,20 +6,22 @@ import {
   useSendEmailVerification,
 } from "react-firebase-hooks/auth";
 import auth from "../firebase.init";
+import Loding from "../components/Loding/Loding";
 
 const SignUp = () => {
   const [valid, setValid] = useState("");
   const [myerror, setMyError] = useState("");
   // const [password,setPassword] = useState('')
   const [createUserWithEmailAndPassword, user, loading, error] =
-    useCreateUserWithEmailAndPassword(auth, {
-      emailVerificationOptions: true,
-    });
+    useCreateUserWithEmailAndPassword(auth, { sendEmailVerification: true });
 
-  const [sendEmailVerification, sending] = useSendEmailVerification(auth);
+  // const [sendEmailVerification, sending] = useSendEmailVerification(auth);
 
   const navigate = useNavigate();
 
+  if (loading) {
+    return <Loding></Loding>;
+  }
   const handleEmailSubmit = (event) => {
     event.preventDefault();
 
@@ -48,8 +50,6 @@ const SignUp = () => {
     console.log(result);
 
     createUserWithEmailAndPassword(email, password).then(() => {
-      sendEmailVerification();
-
       navigate("/login");
     });
   };

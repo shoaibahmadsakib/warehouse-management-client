@@ -9,21 +9,25 @@ import {
 import { useSignInWithGoogle } from "react-firebase-hooks/auth";
 import auth from "../firebase.init";
 import { toast } from "react-toastify";
+import Loding from "../components/Loding/Loding"
 
 const Login = () => {
-  const [signInWithEmailAndPassword, user, loading, error] =
-    useSignInWithEmailAndPassword(auth);
-  const [sendPasswordResetEmail, sending] = useSendPasswordResetEmail(auth);
-  // const [user, loading, error] = useAuthState(auth);
-  const [myerror, setMyError] = useState("");
+  const [
+    signInWithEmailAndPassword,
+    user,
+    loading,
+    error,
+] = useSignInWithEmailAndPassword(auth);
+  
+  const [sendPasswordResetEmail] = useSendPasswordResetEmail(auth);
   const emailref = useRef("");
-
   const location = useLocation();
   const navigate = useNavigate();
 
   //whis route you want to go after login
   const from = location?.state?.from?.pathname || "/";
 
+  //google login
   const [signInWithGoogle] = useSignInWithGoogle(auth);
 
   const handleGoogleSignIn = () => {
@@ -31,6 +35,10 @@ const Login = () => {
       navigate(from, { replace: true });
     });
   };
+
+  if (loading) {
+    return <Loding></Loding>;
+  }
 
   //email sign in
   if (user) {
@@ -44,12 +52,6 @@ const Login = () => {
     const password = event.target.password.value;
 
     signInWithEmailAndPassword(email, password);
-    // .then(() => {
-    //   if(user){
-
-    //     navigate(from, { replace: true });
-    //   }
-    // });
   };
   const handlePassWordReset = async (event) => {
     const email = emailref.current.value;
@@ -77,7 +79,7 @@ const Login = () => {
             placeholder="input Password"
           />
         </Form.Group>
-        <p className="text-danger">{error?.message}</p>
+        <p className="text-danger">fhgf{error?.message}</p>
         <Button type="submit" variant="primary">
           Submit here
         </Button>

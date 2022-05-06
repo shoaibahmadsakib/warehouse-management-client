@@ -9,8 +9,6 @@ const MyItem = () => {
 
   useEffect(() => {
     const getOrder = async () => {
-      const email = user.email;
-      console.log(email);
       const url = `https://still-stream-74299.herokuapp.com/userinfo`;
       const { data } = await axios.get(url);
 
@@ -20,11 +18,7 @@ const MyItem = () => {
     getOrder();
   }, [user, users]);
 
-  // const myFilter = data.filter((service) => service.email === user.email);
-  // setMyItem(remaining)
-
   const handleDelete = (id) => {
-    console.log(id);
     const confirmDelete = window.confirm("are you sure to delete it?");
     if (confirmDelete) {
       const url = `https://still-stream-74299.herokuapp.com/userinfo/${id}`;
@@ -33,7 +27,6 @@ const MyItem = () => {
       })
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
           const remaining = users.filter((service) => service._id !== id);
           setUsers(remaining);
         });
@@ -43,9 +36,11 @@ const MyItem = () => {
   return (
     <div className="container d-flex justify-content-between flex-column  py-5 w-50 my_own_style">
       {myItem.map((data) => (
-        <div className="d-flex justify-content-between flex-row pb-3">
+        <div
+          key={data._id}
+          className="d-flex justify-content-between flex-row pb-3"
+        >
           <p>
-            {" "}
             <b>name:</b> {data.name}
           </p>
 
@@ -54,13 +49,7 @@ const MyItem = () => {
             onClick={() => handleDelete(data._id)}
           >
             <i className="fa-solid fa-delete-left"></i>
-          </button> 
-
-          
-         
-
-
-
+          </button>
         </div>
       ))}
     </div>

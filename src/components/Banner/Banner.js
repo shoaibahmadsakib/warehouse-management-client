@@ -1,7 +1,5 @@
 import React from "react";
-import bannerImg from "../../assets/imageLink";
 import "./Banner.css";
-import { Button } from "react-bootstrap";
 import Typewriter from "typewriter-effect";
 const Banner = () => {
   return (

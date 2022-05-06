@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 const Inventory = () => {
   const [info, setUnfo] = useState({});
-  const [product, setProduct] = useState({});
   const [isRelode, setIsRelode] = useState({});
 
   useEffect(() => {
@@ -43,7 +42,6 @@ const Inventory = () => {
     })
       .then((res) => res.json())
       .then((result) => {
-        console.log(result);
         // e.target.reset("")
         setIsRelode(!isRelode);
       });
@@ -65,13 +63,8 @@ const Inventory = () => {
           </button>
 
           <form onSubmit={handleSubmit}>
-           
-            <input type="number" name="quantity" id=""  placeholder="restock" />
-            <button
-              className="btn btn-danger"
-              type="submit"
-             
-            >
+            <input type="number" name="quantity" id="" placeholder="restock" />
+            <button className="btn btn-danger" type="submit">
               submit
             </button>
           </form>

@@ -1,4 +1,4 @@
-*{
+* {
   font-family: "Roboto", sans-serif;
 }
 
@@ -17,7 +17,7 @@
 }
 
 /* manage item */
-.all_item-align{
+.all_item-align {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 10px;
@@ -57,7 +57,7 @@
 
 /* myitem */
 
-.my_own_style{
+.my_own_style {
   padding: 0px 100px;
 }
 
@@ -66,27 +66,25 @@
 .error_page {
   height: 100vh;
   background-color: rgb(50 50 50);
-
 }
-.error_page h1{
+.error_page h1 {
   color: #fff;
   text-align: center;
   padding-top: 50px;
   font-size: 70px;
   font-weight: 700;
 }
-.error_page p{
+.error_page p {
   color: #fff;
   text-align: center;
   padding-top: 10px;
   font-size: 30px;
   font-weight: 500;
 }
-.error_img{
+.error_img {
   text-align: center;
 }
-.error_img img{
-
+.error_img img {
   width: 250px;
 }
 /* /responsive */
@@ -108,21 +106,21 @@
   .myForm_style {
     margin: 0px 10px;
   }
-  .inventory_style{
+  .inventory_style {
     flex-direction: column;
   }
-  .second_part{
-
-  width: 90%;
+  .second_part {
+    width: 90%;
   }
-  .first_part{
-
-  width: 90%;
+  .first_part {
+    width: 90%;
   }
-  .inv_btn_style{
-
+  .inv_btn_style {
   }
-  .my_own_style{
+  .my_own_style {
     padding: 0;
+  }
+  .all_item-align {
+    grid-template-columns: auto;
   }
 }

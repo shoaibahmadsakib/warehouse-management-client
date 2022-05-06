@@ -1,27 +1,24 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-import {useAuthState} from "react-firebase-hooks/auth"
+import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../firebase.init";
 const AddItem = () => {
   const { register, handleSubmit } = useForm();
-  const [user] = useAuthState(auth)
+  const [user] = useAuthState(auth);
   const onSubmit = (data) => {
-    console.log(data);
     const url = `https://still-stream-74299.herokuapp.com/userinfo`;
     fetch(url, {
-        method: 'POST',
-        headers: {
-            'content-type': 'application/json'
-        },
-        body: JSON.stringify(data)
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(data),
     })
-    .then(res=> res.json())
-    .then(result =>{
-        console.log(result);
-        toast("add successfully")
-        
-    } )
+      .then((res) => res.json())
+      .then((result) => {
+        toast("add successfully");
+      });
   };
 
   return (
@@ -31,7 +28,6 @@ const AddItem = () => {
         <input
           className="mb-2"
           placeholder="Name"
-          
           {...register("name", { required: true, maxLength: 20 })}
         />
         <input
@@ -70,7 +66,11 @@ const AddItem = () => {
           type="text"
           {...register("image")}
         />
-        <input type="submit" value="Add Service"  className="btn btn-outline-info"/>
+        <input
+          type="submit"
+          value="Add Service"
+          className="btn btn-outline-info"
+        />
       </form>
     </div>
   );

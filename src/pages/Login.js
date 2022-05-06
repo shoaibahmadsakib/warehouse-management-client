@@ -1,24 +1,22 @@
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import { Button, Form } from "react-bootstrap";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
-  useAuthState,
   useSendPasswordResetEmail,
   useSignInWithEmailAndPassword,
 } from "react-firebase-hooks/auth";
 import { useSignInWithGoogle } from "react-firebase-hooks/auth";
 import auth from "../firebase.init";
 import { toast } from "react-toastify";
-import Loding from "../components/Loding/Loding"
+import Loding from "../components/Loding/Loding";
+import useToken from "../hooks/useToken";
 
 const Login = () => {
-  const [
-    signInWithEmailAndPassword,
-    user,
-    loading,
-    error,
-] = useSignInWithEmailAndPassword(auth);
-  
+  const [signInWithEmailAndPassword, user, loading, error] =
+    useSignInWithEmailAndPassword(auth);
+  const [signInWithGoogle, guser] = useSignInWithGoogle(auth);
+  const [token] = useToken(user || guser);
+
   const [sendPasswordResetEmail] = useSendPasswordResetEmail(auth);
   const emailref = useRef("");
   const location = useLocation();
@@ -28,12 +26,12 @@ const Login = () => {
   const from = location?.state?.from?.pathname || "/";
 
   //google login
-  const [signInWithGoogle] = useSignInWithGoogle(auth);
 
+  if (token) {
+    navigate(from, { replace: true });
+  }
   const handleGoogleSignIn = () => {
-    signInWithGoogle().then(() => {
-      navigate(from, { replace: true });
-    });
+    signInWithGoogle();
   };
 
   if (loading) {
@@ -41,17 +39,19 @@ const Login = () => {
   }
 
   //email sign in
-  if (user) {
+  if (token) {
     navigate(from, { replace: true });
   }
 
-  const handleSignInEmail = (event) => {
+  const handleSignInEmail = async (event) => {
     event.preventDefault();
 
     const email = event.target.email.value;
     const password = event.target.password.value;
 
-    signInWithEmailAndPassword(email, password);
+    await signInWithEmailAndPassword(email, password);
+
+    // navigate(from, { replace: true });
   };
   const handlePassWordReset = async (event) => {
     const email = emailref.current.value;
@@ -79,7 +79,7 @@ const Login = () => {
             placeholder="input Password"
           />
         </Form.Group>
-        <p className="text-danger">fhgf{error?.message}</p>
+        <p className="text-danger">{error?.message}</p>
         <Button type="submit" variant="primary">
           Submit here
         </Button>
@@ -94,17 +94,9 @@ const Login = () => {
         </p>
       </Form>
       <div className="mx-auto w-50">
-        <a className="alert-link" onClick={handlePassWordReset}>
+        <p className="alert-link" onClick={handlePassWordReset}>
           Reset password
-        </a>
-        {/* <button
-         className="alert-link"
-          type="submit"
-         
-          onClick={handlePassWordReset}
-        >
-          Reset password
-        </button> */}
+        </p>
       </div>
     </div>
   );

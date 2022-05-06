@@ -1,17 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { NavLink } from "react-bootstrap";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
+import useGetinfo from "../hooks/useGetinfo";
 
 const ManageItem = () => {
-  const [users, setUsers] = useState([]);
-  useEffect(() => {
-    fetch("https://still-stream-74299.herokuapp.com/userinfo")
-      .then((res) => res.json())
-      .then((data) => setUsers(data));
-  }, []);
+  const [users, setUsers] = useGetinfo();
 
   const handleDelete = (id) => {
-    console.log(id);
     const confirmDelete = window.confirm("are you sure to delete it?");
     if (confirmDelete) {
       const url = `https://still-stream-74299.herokuapp.com/userinfo/${id}`;
@@ -20,7 +15,6 @@ const ManageItem = () => {
       })
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
           const remaining = users.filter((service) => service._id !== id);
           setUsers(remaining);
         });
@@ -33,10 +27,13 @@ const ManageItem = () => {
       <div className="all_item-align">
         {users.map((data) => (
           <div key={data._id} className="manageitem_align">
-           
-              <p> <b>Name :</b> {data.name}</p>
-              <p> <b>Suplier :</b>{data.suplierName}</p>
-           
+            <p>
+              <b>Name :</b> {data.name}
+            </p>
+            <p>
+              <b>Suplier :</b>
+              {data.suplierName}
+            </p>
 
             <div className="d-flex justify-content-between gap-3">
               <button
@@ -54,16 +51,16 @@ const ManageItem = () => {
                 Update
               </NavLink>
               <Link to={`/inventory/${data._id}`} className="btn btn-primary">
-                manage 
-                </Link>
+                manage
+              </Link>
             </div>
           </div>
         ))}
-       
       </div>
       <div className="text-end py-3">
-
-      <Link to="/additem" className="btn btn-outline-info">Add Vehicles</Link>
+        <Link to="/additem" className="btn btn-outline-info">
+          Add Vehicles
+        </Link>
       </div>
     </div>
   );

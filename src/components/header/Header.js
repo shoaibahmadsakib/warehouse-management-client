@@ -7,8 +7,8 @@ import { signOut } from "firebase/auth";
 import "./Header.css";
 
 const Header = () => {
-  const [user, loading, error] = useAuthState(auth);
-  // console.log(user);
+  const [user] = useAuthState(auth);
+ 
   return (
     <Navbar bg="light" expand="lg">
       <Container>

@@ -1,28 +1,27 @@
 import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
-import { Link, Navigate, useNavigate } from "react-router-dom";
-import {
-  useCreateUserWithEmailAndPassword,
-  useSendEmailVerification,
-} from "react-firebase-hooks/auth";
+import { Link, useNavigate } from "react-router-dom";
+import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
 import auth from "../firebase.init";
 import Loding from "../components/Loding/Loding";
+import useToken from "../hooks/useToken";
 
 const SignUp = () => {
   const [valid, setValid] = useState("");
   const [myerror, setMyError] = useState("");
-  // const [password,setPassword] = useState('')
-  const [createUserWithEmailAndPassword, user, loading, error] =
+  const [createUserWithEmailAndPassword, user, loading] =
     useCreateUserWithEmailAndPassword(auth, { sendEmailVerification: true });
-
-  // const [sendEmailVerification, sending] = useSendEmailVerification(auth);
+  const [token] = useToken(user);
 
   const navigate = useNavigate();
 
   if (loading) {
     return <Loding></Loding>;
   }
-  const handleEmailSubmit = (event) => {
+  if (token) {
+    navigate("/");
+  }
+  const handleEmailSubmit = async (event) => {
     event.preventDefault();
 
     const email = event.target.email.value;
@@ -42,16 +41,7 @@ const SignUp = () => {
       setMyError("not match");
       return;
     }
-
-    const result = {
-      email,
-      password,
-    };
-    console.log(result);
-
-    createUserWithEmailAndPassword(email, password).then(() => {
-      navigate("/login");
-    });
+    await createUserWithEmailAndPassword(email, password);
   };
   return (
     <div>
@@ -89,14 +79,6 @@ const SignUp = () => {
           />
         </Form.Group>
         <p className="text-danger">{valid}</p>
-        {/* <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-          <Form.Label>Confirm password</Form.Label>
-          <Form.Control
-            name="photo"
-            type="text"
-            placeholder="photourl"
-          />
-        </Form.Group> */}
         <Button type="submit" variant="primary">
           Submit here
         </Button>

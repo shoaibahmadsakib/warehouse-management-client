@@ -29,7 +29,7 @@ const UpdateItem = () => {
       image,
       describtion,
     };
-    console.log(updateItem);
+
 
     const url = `https://still-stream-74299.herokuapp.com/userinfo/${id}`;
     fetch(url, {
@@ -41,7 +41,7 @@ const UpdateItem = () => {
     })
       .then((res) => res.json())
       .then((result) => {
-        console.log(result);
+      
         toast("update successfully");
       });
   };

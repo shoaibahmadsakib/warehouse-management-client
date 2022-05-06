@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Banner from "../components/Banner/Banner";
 import { imageLink } from "../assets/imageLink";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { useAuthState } from "react-firebase-hooks/auth";
+
 
 // Import Swiper styles
 import "swiper/css";
@@ -11,18 +11,12 @@ import "swiper/css/pagination";
 // import required modules
 import { Pagination } from "swiper";
 import ReviewSection from "../components/Reviewsection/ReviewSection";
-import auth from "../firebase.init";
+
 import { Link } from "react-router-dom";
+import useGetinfo from "../hooks/useGetinfo";
 
 const Home = () => {
-  const [user] = useAuthState(auth);
-  const [users, setUsers] = useState([]);
-  useEffect(() => {
-    // const email = user?.email;
-    fetch(`https://still-stream-74299.herokuapp.com/userinfo`)
-      .then((res) => res.json())
-      .then((data) => setUsers(data));
-  }, []);
+  const [users] = useGetinfo();
 
   return (
     <>
@@ -60,7 +54,7 @@ const Home = () => {
       <h2 className="text-center pt-5">Vehicles items</h2>
       <div className="image_style container">
         {users.slice(0, 6).map((data) => (
-          <div className="card">
+          <div className="card" key={data._id}>
             <img src={data.image} className="card-img-top" alt="" />
             <div className="card-body">
               <h3>Name: {data.name}</h3>
@@ -76,7 +70,7 @@ const Home = () => {
                   Quantity: <b>{data.quantity}</b>
                 </p>
                 <Link to={`/inventory/${data._id}`} className="btn btn-primary">
-                manage 
+                  manage
                 </Link>
               </div>
             </div>
@@ -84,10 +78,9 @@ const Home = () => {
         ))}
       </div>
       <div className="d-flex justify-content-end container">
-      <Link to="/manageitem" className="btn btn-primary ">
-                Manage Vehicles
-              </Link>
-
+        <Link to="/manageitem" className="btn btn-primary ">
+          Manage Vehicles
+        </Link>
       </div>
       <ReviewSection />
     </>

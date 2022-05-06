@@ -1,16 +1,22 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   useAuthState,
+  useSendPasswordResetEmail,
   useSignInWithEmailAndPassword,
 } from "react-firebase-hooks/auth";
 import { useSignInWithGoogle } from "react-firebase-hooks/auth";
 import auth from "../firebase.init";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const [signInWithEmailAndPassword, user, loading, error] =
     useSignInWithEmailAndPassword(auth);
+  const [sendPasswordResetEmail, sending] = useSendPasswordResetEmail(auth);
+  // const [user, loading, error] = useAuthState(auth);
+  const [myerror, setMyError] = useState("");
+  const emailref = useRef("");
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -27,21 +33,29 @@ const Login = () => {
   };
 
   //email sign in
+  if (user) {
+    navigate(from, { replace: true });
+  }
 
   const handleSignInEmail = (event) => {
     event.preventDefault();
 
     const email = event.target.email.value;
     const password = event.target.password.value;
-    const result = {
-      email,
-      password,
-    };
-    signInWithEmailAndPassword(email, password).then(() => {
-      navigate(from, { replace: true });
-    });
-  };
 
+    signInWithEmailAndPassword(email, password);
+    // .then(() => {
+    //   if(user){
+
+    //     navigate(from, { replace: true });
+    //   }
+    // });
+  };
+  const handlePassWordReset = async (event) => {
+    const email = emailref.current.value;
+    await sendPasswordResetEmail(email);
+    toast("Please check email");
+  };
   return (
     <div>
       <h2 className="text-center">Login Here</h2>
@@ -51,6 +65,7 @@ const Login = () => {
           <Form.Control
             name="email"
             type="email"
+            ref={emailref}
             placeholder="name@example.com"
           />
         </Form.Group>
@@ -62,9 +77,11 @@ const Login = () => {
             placeholder="input Password"
           />
         </Form.Group>
+        <p className="text-danger">{error?.message}</p>
         <Button type="submit" variant="primary">
           Submit here
         </Button>
+
         <br />
         <Button className="mt-3" variant="danger" onClick={handleGoogleSignIn}>
           Google Sign In
@@ -74,6 +91,19 @@ const Login = () => {
           <Link to="/signup"> Please resistration here</Link>
         </p>
       </Form>
+      <div className="mx-auto w-50">
+        <a className="alert-link" onClick={handlePassWordReset}>
+          Reset password
+        </a>
+        {/* <button
+         className="alert-link"
+          type="submit"
+         
+          onClick={handlePassWordReset}
+        >
+          Reset password
+        </button> */}
+      </div>
     </div>
   );
 };

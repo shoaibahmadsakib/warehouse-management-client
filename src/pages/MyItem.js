@@ -1,60 +1,70 @@
 import React, { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../firebase.init";
-import axios from 'axios'
+import axios from "axios";
 const MyItem = () => {
   const [user] = useAuthState(auth);
   const [myItem, setMyItem] = useState([]);
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    const getOrder = async()=>{
-      
-      const email =user.email
+    const getOrder = async () => {
+      const email = user.email;
       console.log(email);
-      const url = `http://localhost:5000/userinfo`;
-      const {data} =await axios.get(url)
-     
+      const url = `https://still-stream-74299.herokuapp.com/userinfo`;
+      const { data } = await axios.get(url);
+
       const remaining = data.filter((service) => service.email === user.email);
-      setMyItem(remaining)
+      setMyItem(remaining);
+    };
+    getOrder();
+  }, [user, users]);
+
+  // const myFilter = data.filter((service) => service.email === user.email);
+  // setMyItem(remaining)
+
+  const handleDelete = (id) => {
+    console.log(id);
+    const confirmDelete = window.confirm("are you sure to delete it?");
+    if (confirmDelete) {
+      const url = `https://still-stream-74299.herokuapp.com/userinfo/${id}`;
+      fetch(url, {
+        method: "DELETE",
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          const remaining = users.filter((service) => service._id !== id);
+          setUsers(remaining);
+        });
     }
-    getOrder()
-    
-  }, [user,users]);
+  };
 
-// const myFilter = data.filter((service) => service.email === user.email);
-// setMyItem(remaining)
+  return (
+    <div className="container d-flex justify-content-between flex-column  py-5 w-50 my_own_style">
+      {myItem.map((data) => (
+        <div className="d-flex justify-content-between flex-row pb-3">
+          <p>
+            {" "}
+            <b>name:</b> {data.name}
+          </p>
 
-const handleDelete = (id) => {
-  console.log(id);
-  const confirmDelete = window.confirm("are you sure to delete it?");
-  if (confirmDelete) {
-    const url = `http://localhost:5000/userinfo/${id}`;
-    fetch(url, {
-      method: "DELETE",
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        const remaining = users.filter((service) => service._id !== id);
-        setUsers(remaining);
-      });
-  }
-};
+          <button
+            style={{ border: "none" }}
+            onClick={() => handleDelete(data._id)}
+          >
+            <i className="fa-solid fa-delete-left"></i>
+          </button> 
 
-
-  return(
-    <div>
-      {
-        myItem.map(data=>
-        <div>
-          <p>name: {data.name}</p>
-          <button onClick={() => handleDelete(data._id)}>delete</button>
           
-        </div>)
-      }
+         
+
+
+
+        </div>
+      ))}
     </div>
-  )
+  );
 };
 
 export default MyItem;

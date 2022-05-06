@@ -13,7 +13,7 @@ import SignUp from "./pages/SignUp";
 import RequireAuth from "./components/requireAuth/RequireAuth";
 import AddItem from "./pages/AddItem";
 import { ToastContainer } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 import ManageItem from "./pages/ManageItem";
 import UpdateItem from "./pages/UpdateItem";
 import Footer from "./components/footer/Footer";
@@ -22,7 +22,6 @@ import MyItem from "./pages/MyItem";
 function App() {
   return (
     <div className="App">
-      
       <Header></Header>
       <Routes>
         <Route path="/" element={<Home></Home>}></Route>
@@ -34,7 +33,7 @@ function App() {
             </RequireAuth>
           }
         ></Route>
-         <Route
+        <Route
           path="/additem"
           element={
             <RequireAuth>
@@ -42,7 +41,7 @@ function App() {
             </RequireAuth>
           }
         ></Route>
-         <Route
+        <Route
           path="/inventory/:id"
           element={
             <RequireAuth>
@@ -53,13 +52,23 @@ function App() {
         <Route path="/login" element={<Login></Login>}></Route>
         <Route path="/signup" element={<SignUp></SignUp>}></Route>
 
-        <Route path="/manageitem" element={<ManageItem></ManageItem>}></Route>
+        <Route
+          path="/manageitem"
+          element={
+            <RequireAuth>
+              <ManageItem></ManageItem>
+            </RequireAuth>
+          }
+        ></Route>
         <Route path="/myitem" element={<MyItem></MyItem>}></Route>
-        <Route path="/updateitem/:id" element={<UpdateItem></UpdateItem>}></Route>
+        <Route
+          path="/updateitem/:id"
+          element={<UpdateItem></UpdateItem>}
+        ></Route>
 
         <Route path="*" element={<ErrorPage></ErrorPage>}></Route>
       </Routes>
-      <Footer/>
+      <Footer />
       <ToastContainer />
     </div>
   );

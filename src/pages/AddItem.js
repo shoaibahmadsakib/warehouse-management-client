@@ -8,7 +8,7 @@ const AddItem = () => {
   const [user] = useAuthState(auth)
   const onSubmit = (data) => {
     console.log(data);
-    const url = `http://localhost:5000/userinfo`;
+    const url = `https://still-stream-74299.herokuapp.com/userinfo`;
     fetch(url, {
         method: 'POST',
         headers: {
@@ -25,7 +25,7 @@ const AddItem = () => {
   };
 
   return (
-    <div className="w-50 mx-auto myForm_style">
+    <div className="w-50 mx-auto myForm_style my-5">
       <h2>Please add a service</h2>
       <form className="d-flex flex-column" onSubmit={handleSubmit(onSubmit)}>
         <input
@@ -70,7 +70,7 @@ const AddItem = () => {
           type="text"
           {...register("image")}
         />
-        <input type="submit" value="Add Service" />
+        <input type="submit" value="Add Service"  className="btn btn-outline-info"/>
       </form>
     </div>
   );

@@ -19,7 +19,7 @@ const Home = () => {
   const [users, setUsers] = useState([]);
   useEffect(() => {
     // const email = user?.email;
-    fetch(`http://localhost:5000/userinfo`)
+    fetch(`https://still-stream-74299.herokuapp.com/userinfo`)
       .then((res) => res.json())
       .then((data) => setUsers(data));
   }, []);
@@ -28,8 +28,8 @@ const Home = () => {
     <>
       <Banner />
       <div className="vehicle_collection">
-        <h1 className="py-4">Our vehicle Collection</h1>
-        <div className="every_vehicle_collection">
+        <h2 className="py-5">Our Vehicles Collection</h2>
+        <div className="every_vehicle_collection container">
           <Swiper
             slidesPerView={4}
             spaceBetween={50}
@@ -57,8 +57,8 @@ const Home = () => {
           </Swiper>
         </div>
       </div>
-      <h2 className="text-center py-4">inventory items</h2>
-      <div className="image_style">
+      <h2 className="text-center pt-5">Vehicles items</h2>
+      <div className="image_style container">
         {users.slice(0, 6).map((data) => (
           <div className="card">
             <img src={data.image} className="card-img-top" alt="" />
@@ -76,7 +76,7 @@ const Home = () => {
                   Quantity: <b>{data.quantity}</b>
                 </p>
                 <Link to={`/inventory/${data._id}`} className="btn btn-primary">
-                  Update
+                manage 
                 </Link>
               </div>
             </div>
@@ -85,7 +85,7 @@ const Home = () => {
       </div>
       <div className="d-flex justify-content-end container">
       <Link to="/manageitem" className="btn btn-primary ">
-                Manage item
+                Manage Vehicles
               </Link>
 
       </div>

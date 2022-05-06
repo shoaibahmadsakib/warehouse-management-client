@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
-import { Link, Navigate } from "react-router-dom";
-import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+import {
+  useCreateUserWithEmailAndPassword,
+  useSendEmailVerification,
+} from "react-firebase-hooks/auth";
 import auth from "../firebase.init";
 
 const SignUp = () => {
@@ -9,7 +12,13 @@ const SignUp = () => {
   const [myerror, setMyError] = useState("");
   // const [password,setPassword] = useState('')
   const [createUserWithEmailAndPassword, user, loading, error] =
-    useCreateUserWithEmailAndPassword(auth);
+    useCreateUserWithEmailAndPassword(auth, {
+      emailVerificationOptions: true,
+    });
+
+  const [sendEmailVerification, sending] = useSendEmailVerification(auth);
+
+  const navigate = useNavigate();
 
   const handleEmailSubmit = (event) => {
     event.preventDefault();
@@ -17,6 +26,7 @@ const SignUp = () => {
     const email = event.target.email.value;
     const password = event.target.password.value;
     const conPassWord = event.target.conPassWord.value;
+
     if (
       !/^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{6,}$/.test(password)
     ) {
@@ -36,8 +46,11 @@ const SignUp = () => {
       password,
     };
     console.log(result);
+
     createUserWithEmailAndPassword(email, password).then(() => {
-      Navigate('/');
+      sendEmailVerification();
+
+      navigate("/login");
     });
   };
   return (

@@ -6,7 +6,7 @@ const Inventory = () => {
   const [isRelode, setIsRelode] = useState({});
 
   useEffect(() => {
-    const url = `http://localhost:5000/userinfo/${id}`;
+    const url = `https://still-stream-74299.herokuapp.com/userinfo/${id}`;
     fetch(url)
       .then((res) => res.json())
       .then((data) => setUnfo(data));
@@ -19,7 +19,7 @@ const Inventory = () => {
     //copy all previous data if exist in product and setup new quantity
     setUnfo(newProduct);
 
-    fetch(`http://localhost:5000/userinfo/${id}`, {
+    fetch(`https://still-stream-74299.herokuapp.com/userinfo/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -33,7 +33,7 @@ const Inventory = () => {
 
     const quantity = e.target.quantity.value;
 
-    const url = `http://localhost:5000/userinfo/${id}`;
+    const url = `https://still-stream-74299.herokuapp.com/userinfo/${id}`;
     fetch(url, {
       method: "PUT",
       headers: {
@@ -49,7 +49,7 @@ const Inventory = () => {
       });
   };
   return (
-    <div className="d-flex justify-content-between container pt-5 gap-4">
+    <div className="d-flex justify-content-between container py-5 gap-5 inventory_style">
       <div className="first_part">
         <h2>Model Name: {info.name}</h2>
         <p>Model Id : {info._id}</p>
@@ -59,14 +59,21 @@ const Inventory = () => {
         <p>price: {info.price}</p>
         <p>Supplier name: {info.suplierName}</p>
         <p>{info.describtion}</p>
-        <div className="d-flex justify-content-around">
+        <div className="d-flex justify-content-between inv_btn_style">
           <button className="btn btn-primary" onClick={() => removeOne()}>
-            Delever
+            Delivered
           </button>
 
           <form onSubmit={handleSubmit}>
-            <input type="number" name="quantity" id="" />
-            <button className="btn btn-danger" type="submit">submit</button>
+           
+            <input type="number" name="quantity" id=""  placeholder="restock" />
+            <button
+              className="btn btn-danger"
+              type="submit"
+             
+            >
+              submit
+            </button>
           </form>
         </div>
       </div>

@@ -5,10 +5,10 @@ const Footer = () => {
     <footer className="footer">
      
       <div className="copyright">
-        <h2>Influencer products</h2>
+        <h3>Vehicles House</h3>
         <p>
           Copyright <span><i className="far fa-copyright"></i></span> 2020
-          influencer products All rights reserved
+          Vehicles House All rights reserved
         </p>
         <div className="icon">
           <i className="fab fa-instagram"></i>

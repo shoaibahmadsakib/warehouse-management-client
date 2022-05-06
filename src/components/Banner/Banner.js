@@ -7,9 +7,7 @@ const Banner = () => {
   return (
     <div className="banner_size">
       <div className="banner_text">
-        <h1 className="banner_header">
-          Vachels Collection
-        </h1>
+        <h1 className="banner_header">Vehicles Collection</h1>
         <div className="type_style">
           <Typewriter
             options={{

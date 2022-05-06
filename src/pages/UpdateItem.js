@@ -7,7 +7,7 @@ const UpdateItem = () => {
   const { id } = useParams();
 
   useEffect(() => {
-    const url = `http://localhost:5000/userinfo/${id}`;
+    const url = `https://still-stream-74299.herokuapp.com/userinfo/${id}`;
     fetch(url)
       .then((res) => res.json())
       .then((data) => setUpdateItem(data));
@@ -31,7 +31,7 @@ const UpdateItem = () => {
     };
     console.log(updateItem);
 
-    const url = `http://localhost:5000/userinfo/${id}`;
+    const url = `https://still-stream-74299.herokuapp.com/userinfo/${id}`;
     fetch(url, {
       method: "PUT",
       headers: {

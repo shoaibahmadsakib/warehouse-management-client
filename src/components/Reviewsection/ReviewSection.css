@@ -45,6 +45,8 @@
     display: flex;
     justify-content: end;
     padding-top: 20px;
+    margin: 50px 0px;
+
   }
   .see-more a {
     background-color: rgb(211 125 255);

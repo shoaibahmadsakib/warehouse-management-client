@@ -38,11 +38,6 @@ const Login = () => {
     return <Loding></Loding>;
   }
 
-  //email sign in
-  if (token) {
-    navigate(from, { replace: true });
-  }
-
   const handleSignInEmail = async (event) => {
     event.preventDefault();
 
@@ -94,9 +89,9 @@ const Login = () => {
         </p>
       </Form>
       <div className="mx-auto w-50">
-        <p className="alert-link" onClick={handlePassWordReset}>
+        <a className="alert-link" onClick={handlePassWordReset}>
           Reset password
-        </p>
+        </a>
       </div>
     </div>
   );

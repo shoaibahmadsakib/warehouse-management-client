@@ -14,13 +14,13 @@ const SignUp = () => {
   const [token] = useToken(user);
 
   const navigate = useNavigate();
-
+  if (token) {
+    navigate("/login");
+  }
   if (loading) {
     return <Loding></Loding>;
   }
-  if (token) {
-    navigate("/");
-  }
+
   const handleEmailSubmit = async (event) => {
     event.preventDefault();
 
